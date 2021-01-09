@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		 
+		 <record id="ptr_inv_form_view" model="ir.ui.view">
+            <field name="name">ptr.inv.form</field>
+            <field name="model">ptr.inv</field>
+            <field name="arch" type="xml">
+                <form string="Inventaires" version="7.0">
+					<sheet>
+						<notebook >
+							<page string="Information">
+								<group>
+									<field name="name"/>
+									<field name="date_inv_dec"/>
+									<field name="date_inv_ar"/>
+									<field name="duree"/>
+									
+
+								</group>
+							</page>
+							<page string="etablissement">
+								<group >
+									<field name="id_inv"/>
+								</group>
+							</page>
+							
+						</notebook>
+					</sheet>
+				</form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ptr.inv_tree">
+            <field name="name">ptr.inv.tree</field>
+            <field name="model">ptr.inv</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Infos Inventaires">
+                    <field name="name"/>
+					<field name="date_inv_dec"/>
+					<field name="date_inv_ar"/>
+					<field name="duree"/>
+                </tree>
+            </field>
+        </record>
+		
+		<record id="ptr_inv_calendar" model="ir.ui.view">
+			<field name="name">ptr.inv.calendar</field>
+			<field name="model">ptr.inv</field>
+			<field name="arch" type="xml">
+				<calendar color="name" date_delay="duree" date_start="date_inv_dec" string="Inventaire" mode="week">
+					<field name="name"/>
+					<field name="date_inv_dec"/>
+				</calendar>
+			</field>
+		</record>
+		<record id="ptr_inv_gantt" model="ir.ui.view">
+			<field name="name">ptr.inv.gantt</field>
+			<field name="model">ptr.inv</field>
+			<field name="arch" type="xml">
+				<gantt string="Inventaire" date_delay="duree" date_start="date_inv_dec" color="name">
+				      <field name="name" />
+					  <field name="date_inv_dec"/>
+				</gantt>
+			</field>
+	    </record> 
+		<record id="ptr_inv_graph" model="ir.ui.view">
+			<field name="name">ptr.inv.graph</field>
+			<field name="model">ptr.inv</field>
+			<field name="arch" type="xml">
+				<graph string="Statistique des inventaire" type="bar">
+				      <field name="name" />
+					  <field name="duree" operator="+"/>
+				</graph>
+			</field>
+		</record>  	
+        
+	       		
+        <record model="ir.actions.act_window" id="action_inv_seq">
+            <field name="name">action inv</field>
+            <field name="res_model">ptr.inv</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph</field>
+        </record>
+		
+		
+		
+
+   
+       <menuitem name="inventaire processus" id="ptr_process_menu_inventaire" parent="main_menu_etablissement" />
+        <menuitem name="Sous-menu inventaire" id="real_menu_inventaire" parent="ptr_process_menu_inventaire" action="action_inv_seq"/>
+		
+    </data>
+</openerp>
